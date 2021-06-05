@@ -1,0 +1,82 @@
+
+import time as T
+
+a=T.time()
+b=T.localtime()
+s="{0}年{1}月{2}日".format(b.tm_year,b.tm_mon,b.tm_mday)
+
+print(a)
+print(b)
+print(s)
+
+
+'''
+1622884331.186352
+time.struct_time(tm_year=2021, tm_mon=6, tm_mday=5, tm_hour=17, tm_min=12, tm_sec=11, tm_wday=5, tm_yday=156, tm_isdst=0)
+2021年6月5日
+'''
+----------------------------------------------------------------------------------------------------------------------
+
+import time as T
+
+a=T.time()
+s=input("輸入：")
+b=T.time()
+
+tz=b-a
+
+print(a)
+print(b)
+print("間隔時間：{0} 秒".format(tz))
+
+'''
+輸入：30
+1622884415.2181957
+1622884423.3471384
+間隔時間：8.128942728042603 秒
+'''
+---------------------------------------------------------------------------------------------------------
+import time as T
+
+s="4-21-2021, 09:40:23"
+b=T.strptime(s,"%m-%d-%Y, %H:%M:%S")
+
+s="{0}年{1}月{2}日 {3}:{4}:{5}".format(b.tm_year,b.tm_mon,b.tm_mday,b.tm_hour,b.tm_min,b.tm_sec)
+print(s)
+
+'''
+2021年4月21日 9:40:23
+'''
+
+----------------------------------------------------------------------------------------------
+import time as T
+
+s="6-14-2021"
+b=T.strptime(s,"%m-%d-%Y")
+c=T.mktime(b)
+
+d=T.time()
+
+z=c-d
+zz=z//86400
+print(zz)
+
+'''
+8.0
+'''
+------------------------------------------------------------------------
+#取目前時間
+
+import time as T
+
+d=T.time()
+a=15.5*86400
+
+z=d+a
+b=T.localtime(z)
+s="{0}年{1}月{2}日 {3}:{4}:{5}".format(b.tm_year,b.tm_mon,b.tm_mday,b.tm_hour,b.tm_min,b.tm_sec)
+print(s)
+
+'''
+2021年6月21日 5:23:52
+'''
