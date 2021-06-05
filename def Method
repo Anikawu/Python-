@@ -1,0 +1,54 @@
+def MyMethod1():
+    return 10
+def MyMethod2(num1):
+    return num1*10
+def MyMethod3(num1,num2):
+    return num1*num2
+def RetangleArea(length=8,width=6):
+    return length*width
+
+
+a=MyMethod1()
+b=MyMethod2(20)
+c=MyMethod3(10,30)
+d=RetangleArea()
+e=RetangleArea(30,20)
+f=RetangleArea(10)
+print(a)
+print(b)
+print(c)
+print(d)
+print(e)
+print(f)
+
+'''
+10
+200
+300
+48
+600
+60
+'''
+
+
+-----------------------------------------------------------------------------------------------------------
+def MyMethod1(num):
+    total=1
+    for i in range(1,num+1):
+        total*=i
+    return total
+
+def MyMethod2(num):
+    if num==1:
+        return 1
+    else:
+        return num*MyMethod2(num-1)
+
+
+print(MyMethod1(5))    
+print(MyMethod2(7))
+
+'''
+120      #1*2*3*4*5
+5040     #7*6*5*4*3*2*1
+'''
