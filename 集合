@@ -1,0 +1,176 @@
+
+import tkinter as tk
+import random as rd
+from tkinter import messagebox as msgbox
+from tkinter import scrolledtext as st
+
+win=tk.Tk()
+win.title("我的視窗")
+win.geometry('800x600')
+
+def MyFact(num):
+    total=1
+    for i in range(1,num+1):
+        total*=i
+    return total
+
+def Btn1Click():
+    a=int(TB1_value.get())
+    b=MyFact(a)
+    L1['text']=str(b)
+    TB1_value.set("")
+
+
+def Btn2Click():
+    ans=msgbox.askyesno("選擇","做個選擇吧！？")
+    if(ans==True):
+        L1["text"]="是是是是是"
+    else:
+        L1["text"] = "否否否否否"
+
+def Btn3Click():
+    result=""
+    myList=[1,2,3,4,5,6,7,8,9,10]
+    result += str(myList[2]) + "\r\n"
+    result += str(myList[5]) + "\r\n"
+
+    result += "\r\n\r\n"
+
+    for a in myList:
+        result += str(a) + "\r\n"
+
+    result+="\r\n\r\n"
+
+    for i in range(0,len(myList)):
+        result += str(myList[i]) + "\r\n"
+
+    ST.insert(tk.INSERT,result)
+
+
+def Btn4Click():
+  s1={1,2,3,1,2} #集合
+  result=""
+  for a in s1:
+      result+=str(a)+"\r\n"  #結果只有{1,2,3}
+  result+="\r\n\r\n"
+  s1.add(4)   # 添加元素
+  s1.add(2)   #集合不會包含重複的元素
+  s1.add(1)
+
+  s2=set(range(1,11))
+  myList=[]
+  mySet={}
+  mySet= set()  # 建立一個空集合
+
+  for a in s2:
+      result+=str(a)+"\r\n"
+
+  ST.insert(tk.INSERT, result)
+
+
+L1=tk.Label(win,text="Python的標籤文字",width=30,height=2,bg='pink')
+Btn1=tk.Button(win,text="按鈕1",width=10,height=2,command=Btn1Click)
+TB1_value=tk.StringVar()
+TB1=tk.Entry(win,text="",width=30,textvariable=TB1_value)
+Btn2=tk.Button(win,text="訊息方塊",width=10,height=2,command=Btn2Click)
+ST=st.ScrolledText(win,width=50,height=20)
+Btn3=tk.Button(win,text="按鈕3",width=10,height=2,command=Btn3Click)
+Btn4=tk.Button(win,text="按鈕4",width=10,height=2,command=Btn4Click)
+
+TB1.place(x=50,y=30)
+L1.place(x=50,y=50)
+Btn1.place(x=50,y=100)
+Btn2.place(x=50,y=150)
+ST.place(x=300,y=30)
+Btn3.place(x=300,y=400)
+Btn4.place(x=500,y=400)
+
+win.mainloop()
+-----------------------------------------------------------------------------------------------------
+def Btn4Click():
+  s1={1,2,3,4,5,6}      #交集＆、聯集｜、差集-、反交集^
+  s2={5,6,7,8,9,2}      #｜= 聯集，取兩個集合中全部的資料，但不重複取
+  s3={1,10,2,5,8,12}    #-= 差集，從s1中，減掉跟s2重疊的資料
+  s4=s1&s2&s3           #&= 交集 取兩個集合中，重疊的資料
+  s5=((s1^s2)^s3)^s4    #^= 反交集，取兩個集合中，不重疊的資料
+
+  result=""
+  for a in s5:
+      result+=str(a)+"\r\n"
+  ST.insert(tk.INSERT, result)
+  
+  -------------------------------------------------------------------------------------
+  def Btn4Click():
+    dc1 = {"孫小美": 60, "阿土伯": 40, "錢夫人": 70, "舞美拉": 80}
+    dc1["金貝貝"] = 20
+    dc1["阿土伯"] = 55
+
+    #dc1["錢夫人"] = dc1.get("錢夫人")
+    result=""
+    for a in dc1.keys():
+        result+="{0}：{1}\r\n".format(a,dc1[a])
+    ST.insert(tk.INSERT, result)
+    ----------------------------------------------------------------------------------
+    #import os
+    
+    def Btn4Click():
+    path='C:\\ZZZ'             
+    if os.path.exists(path):     #檢查目錄是否存在，若無，則建立資料夾
+        os.rmdir(path)
+        msgbox.showinfo("訊息", "刪除資料夾成功")
+    else:
+        os.mkdir(path)
+        msgbox.showinfo("訊息","建立資料夾成功")
+ --------------------------------------------------------------------------------------
+ 
+ def Btn4Click():
+    result=""
+    path='C:\\???'
+    ps=os.listdir(path) #回傳目錄底下的所有檔案名稱列表(list) (抓資料夾裡的所有檔案名稱)
+    for s in ps:
+        a=path+"\\"+s
+        if os.path.isdir(a):  #os.path.isdir()函数判斷某一路徑是否為目錄
+            result += a + "\t資料夾\r\n"
+        else:
+            z=os.stat(a).st_size  #os.stat() 用於给定的路徑上執行一個系統 stat 的條用
+            result += "{0}\t檔案\t{1}Bytes\r\n".format(a,z)
+
+    ST.insert(tk.INSERT, result)
+    --------------------------------------------------------------------------------------------
+    
+    def Btn4Click():
+    global folderCount, fileCount, totalFileSize
+    result=""
+    path='C:\\???'
+    GetFileInfo(path)
+    result += "資料夾數：{0}\r\n".format(folderCount)
+    result += "檔案數：{0}\r\n".format(fileCount)
+    result += "總大小：{0}\r\n".format(totalFileSize)
+    ST.insert(tk.INSERT, result)
+
+
+folderCount=0
+fileCount=0
+totalFileSize=0
+
+def GetFileInfo(folderPath):
+    global folderCount,fileCount,totalFileSize
+    ps = os.listdir(folderPath)
+    for s in ps:
+        a = folderPath + "\\" + s
+        if os.path.isdir(a):
+            folderCount+=1
+            GetFileInfo(a)
+        else:
+            fileCount+=1
+            z = os.stat(a).st_size
+            totalFileSize+=z
+
+-----------------------------------------------------------------------------
+def Btn3Click():
+    result=""
+    sh.rmtree("C:\\ZZZ")
+    msgbox.showinfo("訊息","整個資料夾刪除成功！")
+    ST.insert(tk.INSERT,result)
+    
+    
