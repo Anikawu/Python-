@@ -1,0 +1,41 @@
+import tkinter as tk
+from tkinter import messagebox as msgbox
+from tkinter import scrolledtext as st
+win=tk.Tk()
+win.title('BMI計算')
+win.geometry('800x600')
+def BtnClick():
+     h=int(Tb1_value.get())
+     w=int(Tb2_value.get())
+     bmi=w/((h/100)**2)
+     result['text']='身高:{0},體重:{1},BMI{2}'.format(h,w,round(bmi,2))
+
+def Btn2Click():
+     ans = msgbox.askokcancel('存檔','是否存檔?')
+     if (ans == False):
+          msgbox.showwarning("存檔","取消存檔")
+          return
+
+l1=tk.Label(win,text='身高',padx=10,pady=8,font=('微軟正黑體',14))
+Tb1_value=tk.StringVar()
+Tb1=tk.Entry(win,text='',width=45,textvariable=Tb1_value)
+l2=tk.Label(win,text='體重',padx=10,pady=8,font=('微軟正黑體',14))
+Tb2_value=tk.StringVar()
+Tb2=tk.Entry(win,text='',width=45,textvariable=Tb2_value)
+result=tk.Label(win,text='',padx=10,pady=8,font=('微軟正黑體',14))
+Btn1=tk.Button(win,text='計算',bg='gray',width=5,height=2,command=BtnClick)
+Btn2=tk.Button(win,text='存檔',bg='lightgreen',width=5,height=2,command=Btn2Click)
+ST=st.ScrolledText(win,width=30,height=30)
+
+
+l1.place(x=50,y=50)
+Tb1.place(x=120,y=65)
+l2.place(x=50,y=100)
+Tb2.place(x=120,y=115)
+Btn1.place(x=55,y=150)
+Btn2.place(x=55,y=200)
+result.place(x=100,y=150)
+ST.place(x=450,y=55)
+
+
+win.mainloop()
