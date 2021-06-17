@@ -1,0 +1,32 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+from matplotlib.font_manager import FontProperties
+
+
+
+df = pd.read_csv('NewLicense.csv',encoding='UTF-8')
+
+data = df.loc[:, ['月份','大貨車','汽車','機車']]
+# 將 date 設為 index，要當作 X 軸使用
+data = data.set_index('月份')
+print(data)
+
+fig = data.plot(kind='bar')#.get_figure()
+
+myfont = FontProperties(fname=r'NotoSansCJK-Black.ttc')
+
+plt.title('New License Plate Application Inspection')
+
+# 設定 x 軸標頭和字體
+plt.xlabel('類型',fontproperties=myfont)
+# 設定 y 軸標頭和字體
+plt.ylabel('數量',fontproperties=myfont)
+# 設定右上角說明圖示字體
+plt.legend(prop=myfont)
+
+for label in fig.get_xticklabels():
+    label.set_fontproperties(myfont)
+
+# 儲存成圖片
+plt.savefig('plot.png')
+plt.show()
