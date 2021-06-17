@@ -1,0 +1,27 @@
+import tkinter as tk
+window = tk.Tk()
+window.title('Exchange Rate App')
+window.geometry('800x600')
+window.configure(background='white')
+
+header_label = tk.Label(window, text='Exchange Rate(please enter NTD)')
+header_label.pack()
+
+input_entry = tk.Entry(window)
+input_entry.pack()
+
+result_label = tk.Label(window)
+result_label.pack()
+
+def calculate():
+  rate = 28.10
+  ntd = int(input_entry.get())
+  usd =ntd*rate
+  result='USD:{}'.format(usd)
+  result_label.configure(text=result)
+
+
+calculate_btn = tk.Button(window, text='covert',command=calculate)
+calculate_btn.pack()
+
+window.mainloop()
