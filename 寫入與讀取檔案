@@ -1,0 +1,73 @@
+
+import tkinter as tk
+from tkinter import messagebox as msgbox
+from tkinter import scrolledtext as st
+import os
+import shutil as sh
+
+win=tk.Tk()
+win.title("我的視窗")
+win.geometry('800x600')
+
+
+
+
+def clearTextInput():   #"1.0"和"end"是指 Tkinter 文字框控制元件中內容的第一個字元和最後一個字元
+    ST.delete("1.0","end")
+
+def MyFact(num):
+    total=1
+    for i in range(1,num+1):
+        total*=i
+    return total
+
+def Btn1Click():
+    a=int(TB1_value.get())
+    b=MyFact(a)
+    L1['text']=str(b)
+    TB1_value.set("")
+
+
+
+def Btn3Click():
+    result = ""
+    path="C:\\zzz"
+    nn="mytext.txt"
+    f=open(path+'\\'+nn,'w')
+    for i in range(1, 10):
+        for j in range(1, 10):
+            f.write('{}'.format(i * j)+"\t")
+        f.write("\n")
+    f.close()
+
+    msgbox.showinfo("訊息", "檔案寫入成功")
+
+def Btn4Click():
+        path = "C:\\zzz"
+        nn = "mytext.txt"
+        result = ""
+        with open(path + "\\" + nn, "r", encoding="932") as f:
+            aa = f.readlines()
+            for a in aa:
+                result+=a
+        f.close()
+        ST.insert(tk.INSERT, result)
+        msgbox.showinfo("訊息", "檔案讀取成功")
+
+
+L1=tk.Label(win,text="Python的標籤文字",width=30,height=2,bg='pink')
+Btn1=tk.Button(win,text="清除",width=10,height=2,command=clearTextInput)
+TB1_value=tk.StringVar()
+TB1=tk.Entry(win,text="",width=30,textvariable=TB1_value)
+
+ST=st.ScrolledText(win,width=60,height=20)
+Btn3=tk.Button(win,text="寫入",width=10,height=2,command=Btn3Click)
+Btn4=tk.Button(win,text="讀取",bg="gray",width=10,height=2,command=Btn4Click)
+TB1.place(x=50,y=30)
+L1.place(x=50,y=50)
+Btn1.place(x=50,y=100)
+ST.place(x=300,y=30)
+Btn3.place(x=300,y=400)
+Btn4.place(x=400,y=400)
+
+win.mainloop()
