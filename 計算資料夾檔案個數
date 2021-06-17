@@ -1,0 +1,51 @@
+import tkinter as tk
+from tkinter import scrolledtext as st
+from tkinter import messagebox as msgbox
+import os
+
+
+
+win=tk.Tk()
+win.title('合集')
+win.geometry('800x600')
+
+def clearTextInput():   #"1.0"和"end"是指 Tkinter 文字框控制元件中內容的第一個字元和最後一個字元
+    ST.delete("1.0","end")
+def BtnClick():
+    global folderCount, fileCount, totalFileSize          #只負責呼叫
+    result=""
+    path='C:\\python'
+    GetFileInfo(path)
+    result += "資料夾數：{0}\r\n".format(folderCount)
+    result += "檔案數：{0}\r\n".format(fileCount)
+    result += "總大小：{0}\r\n".format(totalFileSize)
+    ST.insert(tk.INSERT, result)
+
+
+folderCount=0
+fileCount=0
+totalFileSize=0
+
+def GetFileInfo(folderPath):
+    global folderCount,fileCount,totalFileSize  #global 宣告全域變數的名稱
+    ps = os.listdir(folderPath)
+    for s in ps:
+        a = folderPath + "\\" + s
+        if os.path.isdir(a):   #如果資料夾中還有一層  繼續往下找
+            folderCount+=1     
+            GetFileInfo(a)
+        else:
+            fileCount+=1
+            z = os.stat(a).st_size  #os.stat是將文件的相關屬性讀出来  st_size(文件大小，以位為单位)
+            totalFileSize+=z
+
+
+result=tk.Label(win,text='',padx=10,pady=8,font=('微軟正黑體',14))
+Btn1=tk.Button(win,text='結果',bg='gray',width=10,height=2,command=BtnClick)
+Btn2=tk.Button(win,text="清除",width=10,height=2,command=clearTextInput)
+ST=st.ScrolledText(win,width=50,height=20)
+
+Btn1.place(x=50,y=50)
+Btn2.place(x=50,y=100)
+ST.place(x=150,y=50)
+win.mainloop()
