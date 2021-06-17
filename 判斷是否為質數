@@ -1,0 +1,14 @@
+def Prime(n):  
+  for i in range(2,n):
+    if n % i == 0:
+      return False
+  return True
+
+
+n = eval(input("請輸入一個數，判斷是否為質數："))
+
+for i in range(2,n+1):
+    is_prime = Prime(i)
+    if is_prime:
+      print(n,"是質數")
+  
