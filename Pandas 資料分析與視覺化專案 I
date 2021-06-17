@@ -1,0 +1,13 @@
+import pandas as pd
+
+#下載政府開放資訊網站的 盤後資訊 > 個股日成交資訊 檔案，儲存成 stock_data.csv 然後使用 DataFrame 物件的 read_csv 方法讀入
+#取出 第 3-5 筆資料的 證券代號,證券名稱,收盤價 值（注意第一筆資料列索引為 0）。
+
+
+df = pd.read_csv('stock_data.csv',encoding='utf-8')
+
+data=df.loc[[3,4,5], ['證券代號','證券名稱','收盤價']]
+print(data)
+#df.loc[2:4, '證券代號':'證券名稱':'收盤價']
+#df[['證券代號','證券名稱','收盤價']]
+
