@@ -1,0 +1,39 @@
+import tkinter as tk
+from tkinter import scrolledtext as st
+import random   #隨機
+
+win=tk.Tk()
+win.title('合集')
+win.geometry('800x600')
+
+def clearTextInput():   #"1.0"和"end"是指 Tkinter 文字框控制元件中內容的第一個字元和最後一個字元
+    ST.delete("1.0","end")
+
+def BtnClick():     #3個集合都有的   3個集合獨有的
+
+        s1 = {1, 2, 3, 4, 5, 6}
+        s2 = {5, 6, 7, 8, 9, 2}
+        s3 = {1, 10, 2, 5, 8, 12}
+
+        x= str(s1&s2&s3)
+        y=str(s1-s2-s3)
+        z=str(s2-s3-s1)
+        v=str(s3-s1-s2)
+
+        result = ""
+        result += "合集"+str(x)+"\r\n"
+        result += "s1獨有"+str(y)+"\r\n"
+        result += "s2獨有"+str(z)+"\r\n"
+        result += "s3獨有"+str(v)+"\r\n"
+        ST.insert(tk.INSERT, result)
+
+
+result=tk.Label(win,text='',padx=10,pady=8,font=('微軟正黑體',14))
+Btn1=tk.Button(win,text='結果',bg='gray',width=10,height=2,command=BtnClick)
+Btn2=tk.Button(win,text="清除",width=10,height=2,command=clearTextInput)
+ST=st.ScrolledText(win,width=50,height=40)
+
+Btn1.place(x=50,y=50)
+Btn2.place(x=50,y=100)
+ST.place(x=150,y=50)
+win.mainloop()
