@@ -1,0 +1,49 @@
+import tkinter as tk
+from tkinter import scrolledtext as st
+from tkinter import messagebox as msgbox
+import os    #調用操作系統命令，來達成建立文件，刪除文件，查詢文件
+import shutil  #複製資料夾內所有檔案至新建資料夾中
+
+
+win=tk.Tk()
+win.title('複製檔案')
+win.geometry('800x600')
+
+
+def Btn4Click():
+
+
+    file_count = 0
+    source_path = str(Tb1_value.get())  #來源路徑
+    target_path = str(Tb2_value.get())  #目標路徑
+    file = str(Tb3_value.get())         #檔案類型
+    pathDir= os.listdir(source_path)    #os.listdir()列出指定目錄的檔案
+    result=""
+    if not os.path.exists(target_path):  #如果資料夾不存在就建立
+        os.makedirs(target_path)       #os.makedirs建立多層目錄
+
+    if os.path.exists(source_path):   #os.path.exists()是否存在
+        for root, dirs, files in os.walk(source_path):  #os.walk()生成目錄下的所有檔名
+            for file in files:
+                src_file = os.path.join(root, file)     #os.path.join()將分離的各部分組合成一個路徑名
+                shutil.copy(src_file, target_path)      #shutil.copy 前只能是目錄 後可以是目錄或檔案
+                file_count += 1
+                print(src_file)
+    msgbox.showinfo("提醒", "資料複製成功")
+    return int(file_count)
+
+
+
+
+result=tk.Label(win,text='',padx=10,pady=8,font=('微軟正黑體',14))
+Btn1=tk.Button(win,text='複製',bg='gray',width=10,height=2,command=BtnClick)
+L1=tk.Label(win,text="來源位置",width=30,height=2,bg='pink')
+TB1_value=tk.StringVar()
+TB1=tk.Entry(win,text="",width=30,textvariable=TB1_value)
+
+
+
+Btn1.place(x=50,y=100)
+
+
+win.mainloop()
