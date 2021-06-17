@@ -1,0 +1,48 @@
+import requests
+import csv
+import time
+time.sleep(3)
+
+from bs4 import BeautifulSoup
+url = 'https://movies.yahoo.com.tw/chart.html?cate=year'
+
+headers = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36'}
+
+resp = requests.get(url, headers=headers)
+
+# 設定編碼為 utf-8 避免中文亂碼問題
+resp.encoding = 'utf-8'
+
+# 根據 HTTP header 的編碼解碼後的內容資料（ex. UTF-8），若該網站沒設定可能會有中文亂碼問題。所以通常會使用 resp.encoding 設定
+raw_html = resp.text
+soup = BeautifulSoup(raw_html, 'html.parser')
+
+
+# 開始寫入檔案，把資料存放到 list 裡面
+performance_list = []
+#使用 CSS Selector 選到對應的元素位置，取出裡面的值 (1-9)
+for i in range(1, 10):
+    print('i', i) 
+    performance_dict= {}
+
+    performance_dict['rank'] = soup.select('#content_l > div > div.rank_list.table.rankstyle1 > div:nth-child(2)> div:nth-child(1)')[0].text
+    performance_dict['name'] = soup.select('#content_l > div > div.rank_list.table.rankstyle1 > div:nth-child(2)> div:nth-child(4) > a > dl > dd > h2')[0].text
+    performance_dict['date'] = soup.select('#content_l > div > div.rank_list.table.rankstyle1 > div:nth-child(2)> div:nth-child(5)')[0].text
+    
+    # 每月資料寫入 list
+    performance_list.append(performance_dict)
+
+# CSV 檔案第一列標題會是 date, final_price, year_revenue，記得要和 dict 的 key 相同，不然會出現錯誤
+headers = [ 'rank','name', 'date']
+
+# 使用檔案 with ... open 開啟寫入檔案模式，透過 csv 模組將資料寫入
+with open('performance.csv', 'w') as output_file:
+    dict_writer = csv.DictWriter(output_file, headers)
+    # 寫入標題
+    dict_writer.writeheader()
+    # 寫入值
+    dict_writer.writerows(performance_list)
+
+
+
+
