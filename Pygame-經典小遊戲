@@ -1,0 +1,52 @@
+import pygame
+import random
+
+pygame.init()# 遊戲初始化
+
+window_size=[800,600]#建立白色底 800x600 遊戲視窗
+screen=pygame.display.set_mode(window_size)
+screen.fill([255,255,255])
+
+image = pygame.image.load('./duck.png')
+image_x = 0
+image_y = 0
+
+
+image = pygame.transform.scale(image, (150,150))
+#rect = image.get_rect()
+#rect.topleft = (x,y)
+screen.blit(image, (image_x, image_y))
+
+is_game_over=False   
+
+while not is_game_over:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            is_game_over = True
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            mouse_position = pygame.mouse.get_pos()
+            print(mouse_position)
+            # 取得滑鼠點擊的 x, y 軸 tuple (x, y) 位置
+            image_rect = image.get_rect()
+            image_width = image_rect.width
+            # 取出圖片長度
+            image_height = image_rect.height
+            print(image_width, image_height)
+            
+            if image_x < mouse_position[0] < image_x + image_width \
+                    and image_y < mouse_position[1] < image_y + image_height:
+                
+                # 當被點擊後圖片隨機產生新位置
+                image_x = random.randint(0, 800 - image_width)
+                image_y = random.randint(0, 600 - image_height)
+                screen.blit(image, (image_x, image_y))
+
+
+    screen.fill([255, 255, 255])
+            # 填滿背景 [0, 0, 0] 為 光的三原色碼，0, 0, 0 為黑色
+           
+    screen.blit(image, (image_x, image_y))
+
+
+    pygame.display.flip()
+pygame.quit()
