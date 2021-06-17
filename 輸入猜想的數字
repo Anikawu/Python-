@@ -1,0 +1,25 @@
+import random
+answer = random.randint(1,10)
+temp = input("輸入猜想的數字")
+guess = int(temp)
+
+if guess == answer :
+    print("猜對囉")
+    
+
+else :
+    while guess != answer:
+        if guess > answer :
+            print("太大囉\n")
+        else :
+            print("太小囉\n")
+
+        temp = input("再次輸入猜想的數字") 
+        guess = int(temp)
+    print("終於猜對啦")
+
+print("\n遊戲結束 .") 
+
+
+
+
