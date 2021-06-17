@@ -1,0 +1,27 @@
+#元件需有一個按鈕和輸入框，可以輸入攝氏溫度
+#點選按鈕會轉成華氏後顯示於畫面上
+#攝氏 = 5/9 * (華氏溫度 - 32)
+#華氏 = (攝氏)(9/5) + 32
+
+import tkinter as tk
+
+window = tk.Tk()
+window.title('Temperature Conversion')
+window.geometry('800x600')
+window.configure(background='white')
+header_label = tk.Label(window, text='Input degree Celsius')
+header_label.pack()
+
+input_entry = tk.Entry(window)
+input_entry.pack()
+
+result_label = tk.Label(text='')
+result_label.pack()
+def calculate():
+    C=int(input_entry.get())
+    F=C*(9/5) + 32
+    result_label.configure(text=(F))
+
+button = tk.Button(window, text='Conversion',command=calculate)
+button.pack()
+window.mainloop()
