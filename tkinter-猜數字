@@ -1,0 +1,40 @@
+import tkinter as tk
+import random
+import tkinter.messagebox as mb
+
+window = tk.Tk()
+window.title('Guess number')
+window.geometry('800x600')
+window.configure(background='white')
+
+
+header_label = tk.Label(window, text='')
+header_label.pack()
+
+
+input_entry = tk.Entry(window)
+input_entry.pack()
+
+result_label = tk.Label(text='')
+result_label.pack()
+
+def calculate():
+    
+    n = random.randint(1, 100)
+    guess = int(input_entry.get())
+    while n != "guess":
+       if guess < n:
+          mb.showinfo('anwser','數字比較大喔！')
+          break
+       elif guess > n:
+          mb.showinfo('anwser','數字比較小喔！')
+          break
+       else:
+          output='bingo!'
+          mb.showinfo("anwser",output)
+          break
+
+    
+button = tk.Button(window, text='確定', command=calculate)
+button.pack()
+window.mainloop()
