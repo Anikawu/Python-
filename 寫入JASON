@@ -1,0 +1,33 @@
+#example
+import json
+import numpy as np
+class MyEncoder(json.JSONEncoder):#IN CASE ERROR
+    def default(self, obj):
+        if isinstance(obj, np.integer):
+            return int(obj)
+        elif isinstance(obj, np.floating):
+            return float(obj)
+        elif isinstance(obj, np.ndarray):
+            return obj.tolist()
+        else:
+            return super(MyEncoder, self).default(obj)
+dic = {'name':['henry','peter'],'score':[78,87],'remark':['handsome',None]}
+## dict to json
+json_form = json.dumps(dic,cls = MyEncoder)
+print(json_form) #{"name": ["henry", "peter"], "score": [78, 87], "remark": ["handsome", null]}
+print(type(json_form)) #<class 'str'>
+## json to dict
+new_dict = json.loads(json_form)
+print(new_dict) #{'name': ['henry', 'peter'], 'score': [78, 87], 'remark': ['handsome', None]}
+print(type(new_dict)) #<class 'dict'>
+#檔案讀寫
+#write
+with open('test.json', 'w', encoding='utf-8') as f:
+    json.dump(dic, f, ensure_ascii=False, indent=4,sort_keys=True)
+#read
+with open('test.json') as f:
+    json_from_file = json.load(f)
+print(json_from_file) 
+print(type(json_from_file)) #<class 'dict'>
+
+
